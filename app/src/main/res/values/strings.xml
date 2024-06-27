@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ホシイモノ</string>
+    <string name="add_image">画像を追加</string>
+    <string name="add_item">欲しい物を追加</string>
+    <string name="link_placeholder">欲しい物のリンク</string>
+    <string name="desc_placeholder">メモ</string>
+    <string name="item_detail">欲しい物</string>
+    <string name="no_link">リンク無し</string>
+    <string name="text_empty"></string>
+    <string name="image_link_inValid">画像を追加してください</string>
+    <string name="add_what_you_want">欲しい物を追加してください!</string>
+    <string name="label_link">欲しい物のリンク</string>
+    <string name="label_memo">メモ</string>
+    <string name="text_delete_dialog">削除しますか？</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+</resources>
