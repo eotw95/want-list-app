@@ -8,5 +8,6 @@ data class WantItem(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val link: String,
     val description: String,
-    val imagePath: String
+    val imagePath: String,
+    val category: String
 )

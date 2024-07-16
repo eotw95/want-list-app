@@ -17,7 +17,7 @@ fun SplashScreenContent(
     modifier: Modifier = Modifier,
     onAppStart: () -> Unit
 ) {
-    ColumnCenterContent { CircularProgressIndicator() }
+    ColumnCenterContent() { CircularProgressIndicator() }
     LaunchedEffect(key1 = true) {
         delay(1000L)
         onAppStart()

@@ -11,7 +11,7 @@ import javax.inject.Inject
 class PreviewWantViewModel @Inject constructor(
     private val repository: WantRepository
 ): WantNoteViewModel() {
-    val item = mutableStateOf(WantItem(0, "", "", ""))
+    val item = mutableStateOf(WantItem(0, "", "", "", ""))
     fun onDeleteClick(id: Int) {
         launchCatching {
             val item = repository.getItemById(id)

@@ -3,15 +3,23 @@
     <string name="add_image">画像を追加</string>
     <string name="add_item">欲しい物を追加</string>
     <string name="link_placeholder">欲しい物のリンク</string>
+    <string name="link_privacy_policy">プライバシーポリシー</string>
+    <string name="contact">お問い合わせ</string>
+    <string name="theme">テーマ</string>
     <string name="desc_placeholder">メモ</string>
     <string name="item_detail">欲しい物</string>
     <string name="no_link">リンク無し</string>
     <string name="text_empty"></string>
     <string name="image_link_inValid">画像を追加してください</string>
-    <string name="add_what_you_want">欲しい物を追加してください!</string>
+    <string name="add_what_you_want">欲しい物を追加してください !</string>
     <string name="label_link">欲しい物のリンク</string>
     <string name="label_memo">メモ</string>
-    <string name="text_delete_dialog">削除しますか？</string>
+    <string name="text_delete_dialog">削除しますか ？</string>
     <string name="yes">はい</string>
     <string name="no">いいえ</string>
+    <string name="title_tool_bar">What you want !</string>
+    <string name="label_tab">タブ</string>
+    <string name="tab_placeholder">タブ名を入力してください</string>
+    <string name="add_tab">タブを追加</string>
+    <string name="text_add_tab">タブを追加してください ！</string>
 </resources>

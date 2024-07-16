@@ -1,6 +1,7 @@
 package com.eotw95.wantnote.module
 
 import android.content.Context
+import com.eotw95.wantnote.room.TabInfoDao
 import com.eotw95.wantnote.room.WantDao
 import com.eotw95.wantnote.room.WantDatabase
 import dagger.Module
@@ -21,4 +22,7 @@ class WantDatabaseModule {
     @Provides
     @Singleton
     fun provideWantDao(db: WantDatabase): WantDao = db.wantDao()
+    @Provides
+    @Singleton
+    fun provideTabInfoDao(db: WantDatabase): TabInfoDao = db.tabInfoDao()
 }

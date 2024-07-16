@@ -34,11 +34,14 @@ class AddWantViewModel @Inject constructor(
         val imagePath: LiveData<String> = _imagePath
     }
 
-    val item = mutableStateOf(WantItem(0, "", "", ""))
+    val item = mutableStateOf(WantItem(0, "", "", "", ""))
+    val tabText = mutableStateOf("")
 
     fun onLinkChange(newValue: String) { item.value = item.value.copy(link = newValue) }
 
     fun onDescChange(newValue: String) { item.value = item.value.copy(description = newValue) }
+
+    fun onCategoryClick(newValue: String) { item.value = item.value.copy(category = newValue) }
 
     fun onAddImageClick(image: Uri?, context: Context) {
         uriToBitmap(context.contentResolver, image)?.let { bitmap ->
@@ -57,6 +60,8 @@ class AddWantViewModel @Inject constructor(
             repository.insert(item)
         }
     }
+
+    fun onTabTextChanged(newValue: String) { tabText.value = newValue }
 
     private fun uriToBitmap(contentResolver: ContentResolver, uri: Uri?): Bitmap? {
         return if (uri != null) {
