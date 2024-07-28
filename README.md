@@ -1,6 +1,6 @@
-# WantNoteApp
+# WantListApp
 
-WantNoteApp is an application to record what you want.
+WantListApp is an application to record what you want.
 
 ## ScreenShots
 ### Items screen
