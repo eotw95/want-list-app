@@ -13,8 +13,8 @@ WantListApp is an application to record what you want.
 <img src="https://github.com/user-attachments/assets/6318e701-0e18-476e-ab39-23233027801c" alt="" width="250px">
 
 ### Item web screen
-<img src="https://github.com/user-attachments/assets/b80a2872-9160-462a-bcd6-bb62c1bf3dce" alt="" width="250px">
 <img src="https://github.com/user-attachments/assets/c9174e33-bd9d-4722-bc44-dc4d3b1d0f52" alt="" width="250px">
+<img src="https://github.com/user-attachments/assets/b80a2872-9160-462a-bcd6-bb62c1bf3dce" alt="" width="250px">
 
 ### Add item and tab screen
 <img src="https://github.com/user-attachments/assets/29a66683-55de-4d07-b3b3-5b0ebf197fb8" alt="" width="250px">
