@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">ホシイモノ</string>
+    <string name="app_name">What you want !</string>
     <string name="add_image">画像を追加</string>
     <string name="add_item">欲しい物を追加</string>
-    <string name="link_placeholder">欲しい物のリンク</string>
+    <string name="link_placeholder">関連リンク</string>
     <string name="link_privacy_policy">プライバシーポリシー</string>
+    <string name="link_app_store">レビューを書く</string>
     <string name="contact">お問い合わせ</string>
     <string name="theme">テーマ</string>
     <string name="desc_placeholder">メモ</string>
@@ -21,5 +22,13 @@
     <string name="label_tab">タブ</string>
     <string name="tab_placeholder">タブ名を入力してください</string>
     <string name="add_tab">タブを追加</string>
+    <string name="edit_tab">編集を完了</string>
+    <string name="delete_tab">タブを削除</string>
+    <string name="delete_item">商品を削除</string>
     <string name="text_add_tab">タブを追加してください ！</string>
+    <string name="text_tab">タブ</string>
+    <string name="text_link">関連リンク</string>
+    <string name="text_image">商品画像　※必須</string>
+    <string name="text_add_link">関連リンクを追加</string>
+    <string name="text_add">追加</string>
 </resources>

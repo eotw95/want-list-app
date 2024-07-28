@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,6 +22,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import com.eotw95.wantnote.R
 import com.eotw95.wantnote.TAB_ALL
+import com.eotw95.wantnote.common.ext.fieldModifier
 import com.eotw95.wantnote.room.TabInfo
 import org.burnoutcrew.reorderable.ReorderableItem
 import org.burnoutcrew.reorderable.detectReorderAfterLongPress
@@ -32,8 +34,7 @@ fun BasicColumn(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top,
         content = content
@@ -46,9 +47,8 @@ fun BasicScrollableColumn(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top,
         content = content
     )
@@ -89,8 +89,12 @@ fun ColumnScrollableCenterContent(
 
 @Composable
 fun VerticalReorderList(
+    tab: TabInfo,
     items: List<TabInfo>,
-    onReorder: (List<TabInfo>) -> Unit
+    onReorder: (List<TabInfo>) -> Unit,
+    onDeleteClick: (TabInfo) -> Unit,
+    onNameChanged: (String) -> Unit,
+    onEditFinishClick: (TabInfo, TabInfo) -> Unit
 ) {
     if (items.isEmpty()) return
     val data = remember { mutableStateOf(items) }
@@ -129,9 +133,16 @@ fun VerticalReorderList(
                 ) { isDragging ->
                     val elevation = animateDpAsState(if (isDragging) 16.dp else 0.dp)
                     Column(
-                        modifier = Modifier.shadow(elevation.value)
+                        modifier = Modifier.shadow(elevation.value).fieldModifier()
                     ) {
-                        TabField(text = item.name, label = R.string.label_tab)
+                        TabField(
+                            tabInfo = item,
+                            editedTabInfo = tab,
+                            label = R.string.label_tab,
+                            onDeleteClick = onDeleteClick,
+                            onNameChanged = onNameChanged,
+                            onEditFinishClick = onEditFinishClick
+                        )
                     }
                 }
             }

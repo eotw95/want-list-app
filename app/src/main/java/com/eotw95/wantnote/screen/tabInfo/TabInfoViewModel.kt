@@ -1,7 +1,6 @@
 package com.eotw95.wantnote.screen.tabInfo
 
 import androidx.compose.runtime.mutableStateOf
-import com.eotw95.wantnote.R
 import com.eotw95.wantnote.TAB_ALL
 import com.eotw95.wantnote.TAB_SAMPLE
 import com.eotw95.wantnote.WantRepository
@@ -15,9 +14,24 @@ import javax.inject.Inject
 @HiltViewModel
 class TabInfoViewModel @Inject constructor(private val repository: WantRepository): WantNoteViewModel() {
     val tabInfos: Flow<List<TabInfo>> = repository.getTabInfos()
-    var tabInfo = mutableStateOf(TabInfo(0, "", 0))
+    var addedTabInfo = mutableStateOf(TabInfo(0, "", 0))
+    var editedTabInfo = mutableStateOf(TabInfo(0, "", 0))
 
-    fun onInfoChanged(newValue: String) { tabInfo.value = tabInfo.value.copy(name = newValue) }
+    fun onNameChangedOfAddedTab(newValue: String) { addedTabInfo.value = addedTabInfo.value.copy(name = newValue) }
+
+    fun onNameChangedOfEditedTab(newValue: String) { editedTabInfo.value = editedTabInfo.value.copy(name = newValue) }
+
+    fun onEditFinishClick(current: TabInfo, new: TabInfo) {
+        launchCatching {
+            repository.updateTabInfo(current.copy(name = new.name))
+            val currentItems = repository.getAll().first()
+            currentItems.forEach { item ->
+                if (item.category == current.name) {
+                    repository.update(item.copy(category = new.name))
+                }
+            }
+        }
+    }
 
     fun onAddClick(item: TabInfo) {
         launchCatching {
@@ -27,6 +41,18 @@ class TabInfoViewModel @Inject constructor(private val repository: WantRepositor
             }
             repository.insertTabInfo(item.copy(order = maxOrder + 1))
             resetInfo()
+        }
+    }
+
+    fun onDeleteClick(tab: TabInfo) {
+        launchCatching {
+            repository.deleteTabInfo(tab)
+            val currentItems = repository.getAll().first()
+            currentItems.forEach { item ->
+                if (item.category == tab.name) {
+                    repository.update(item.copy(category = ""))
+                }
+            }
         }
     }
 
@@ -51,5 +77,5 @@ class TabInfoViewModel @Inject constructor(private val repository: WantRepositor
         }
     }
 
-    private fun resetInfo() { tabInfo.value = tabInfo.value.copy(name = "") }
+    private fun resetInfo() { addedTabInfo.value = addedTabInfo.value.copy(name = "") }
 }

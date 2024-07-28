@@ -1,6 +1,7 @@
 package com.eotw95.wantnote.module
 
 import android.content.Context
+import com.eotw95.wantnote.room.CategorizedItemDao
 import com.eotw95.wantnote.room.TabInfoDao
 import com.eotw95.wantnote.room.WantDao
 import com.eotw95.wantnote.room.WantDatabase
@@ -19,10 +20,16 @@ class WantDatabaseModule {
     fun provideWantDatabase(@ApplicationContext context: Context): WantDatabase {
         return WantDatabase.getInstance(context)
     }
+
     @Provides
     @Singleton
     fun provideWantDao(db: WantDatabase): WantDao = db.wantDao()
+
     @Provides
     @Singleton
     fun provideTabInfoDao(db: WantDatabase): TabInfoDao = db.tabInfoDao()
+
+    @Provides
+    @Singleton
+    fun provideCategorizedItemDao(db: WantDatabase): CategorizedItemDao = db.categorizedItemDao()
 }

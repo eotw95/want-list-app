@@ -15,6 +15,9 @@ interface WantDao {
     @Query("SELECT * FROM wantItems WHERE id = :id")
     suspend fun getItemById(id: Int): WantItem
 
+    @Query("SELECT * FROM wantItems WHERE category = :category")
+    fun getItemsByCategory(category: String): Flow<List<WantItem>>
+
     @Insert
     suspend fun insert(item: WantItem)
 

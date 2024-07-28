@@ -30,10 +30,10 @@ class MainActivity : ComponentActivity() {
         }
         val isFirst = isFirstLaunchApp()
 
+        // Todo: enableEdgeToEdge() の影響で、Android端末で画面下部にシステムバーがあるタイプだとボタンと被ってしまう
         enableEdgeToEdge()
         setContent {
             WantNoteTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background

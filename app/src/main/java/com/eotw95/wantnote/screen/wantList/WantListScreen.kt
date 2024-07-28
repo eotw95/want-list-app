@@ -1,5 +1,6 @@
 package com.eotw95.wantnote.screen.wantList
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -9,7 +10,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.FabPosition
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -17,10 +18,10 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -34,7 +35,9 @@ import com.eotw95.wantnote.common.composable.BasicGridImage
 import com.eotw95.wantnote.common.composable.BasicHorizontalIndicator
 import com.eotw95.wantnote.common.composable.BasicHorizontalPager
 import com.eotw95.wantnote.common.composable.ColumnCenterContent
+import com.eotw95.wantnote.common.composable.TopFloatingActionButton
 import com.eotw95.wantnote.common.composable.TopToolBar
+import com.eotw95.wantnote.room.CategorizedItem
 import com.eotw95.wantnote.room.TabInfo
 import com.eotw95.wantnote.room.WantItem
 import com.eotw95.wantnote.screen.tabInfo.TabInfoViewModel
@@ -49,10 +52,14 @@ fun WantListScreen(
     tabInfoViewModel: TabInfoViewModel
 ) {
     val items by viewModel.items.collectAsState(initial = emptyList())
+    val categorizedItems by viewModel.categorizedItems.collectAsState(initial = emptyList())
     val tabs by tabInfoViewModel.tabInfos.collectAsState(initial = emptyList())
+
+    LaunchedEffect(key1 = items) { viewModel.syncItems() }
 
     WantListScreenContent(
         items = items,
+        categorizedItems = categorizedItems,
         tabs = tabs.sortedBy { it.order },
         onCellClick = onCellClick,
         onTabClick = onTabClick,
@@ -61,10 +68,12 @@ fun WantListScreen(
     )
 }
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WantListScreenContent(
     items: List<WantItem>,
+    categorizedItems: List<CategorizedItem>,
     tabs: List<TabInfo>,
     onCellClick: (String) -> Unit,
     onTabClick: () -> Unit,
@@ -74,13 +83,10 @@ fun WantListScreenContent(
     val pagerState = rememberPagerState(pageCount = { tabs.size })
 
     Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(onClick = onActionButtonClick, shape = RoundedCornerShape(15.dp)) {
-                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-            }
-        }
+        floatingActionButton = { TopFloatingActionButton { onActionButtonClick() } },
+        floatingActionButtonPosition = FabPosition.Center
     ) {
-        Surface(modifier = Modifier.padding(it)) {
+        Surface {
             BasicColumn {
                 TopToolBar(title = R.string.title_tool_bar) {
                     IconButton(onClick = onTabClick) {

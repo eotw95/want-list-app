@@ -10,13 +10,8 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor (
     private val repository: WantRepository
 ): ViewModel() {
-    companion object {
-        // Todo: fix tmp Url
-        private const val URL_PRIVACY_POLICY = "https://developer.android.com/build/configure-app-module?hl=ja#set-namespace"
-    }
-
-    fun onClickPrivacyPolicy(open: (String) -> Unit) {
-        val encodedUrl = URLEncoder.encode(URL_PRIVACY_POLICY, "UTF-8")
+    fun openWebView(url: String, open: (String) -> Unit) {
+        val encodedUrl = URLEncoder.encode(url, "UTF-8")
         open(encodedUrl)
     }
 }

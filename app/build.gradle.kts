@@ -13,8 +13,8 @@ android {
         applicationId = "com.eotw95.wantnote"
         minSdk = 23
         targetSdk = 34
-        versionCode = 6
-        versionName = "3.3"
+        versionCode = 7
+        versionName = "3.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -95,5 +95,11 @@ dependencies {
 
     // ComposeReorderable
     implementation("org.burnoutcrew.composereorderable:reorderable:0.9.6")
+
+    // accompanist-systemuicontroller
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+
+    // Gson
+    implementation("com.google.code.gson:gson:2.8.6")
 
 }

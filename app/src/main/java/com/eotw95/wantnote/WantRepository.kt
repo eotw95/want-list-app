@@ -1,6 +1,7 @@
 package com.eotw95.wantnote
 
-import androidx.room.Transaction
+import com.eotw95.wantnote.room.CategorizedItem
+import com.eotw95.wantnote.room.CategorizedItemDao
 import com.eotw95.wantnote.room.TabInfo
 import com.eotw95.wantnote.room.TabInfoDao
 import com.eotw95.wantnote.room.WantDao
@@ -11,7 +12,8 @@ import javax.inject.Inject
 
 class WantRepository @Inject constructor(
     private val wantDao: WantDao,
-    private val tabInfoDao: TabInfoDao
+    private val tabInfoDao: TabInfoDao,
+    private val categorizedItemDao: CategorizedItemDao,
 ) {
 
     /**
@@ -33,16 +35,22 @@ class WantRepository @Inject constructor(
     /**
      * TabInfoDao
      */
-    fun getTabInfos(): Flow<List<TabInfo>> {
-        println("getTabInfos: ${tabInfoDao.getAll()}")
-        return tabInfoDao.getAll()
-    }
+    fun getTabInfos(): Flow<List<TabInfo>> = tabInfoDao.getAll()
 
-    suspend fun insertTabInfo(info: TabInfo) = tabInfoDao.insert(info)
+    suspend fun insertTabInfo(tab: TabInfo) = tabInfoDao.insert(tab)
 
-    suspend fun deleteTabInfo(info: TabInfo) = tabInfoDao.delete(info)
+    suspend fun deleteTabInfo(tab: TabInfo) = tabInfoDao.delete(tab)
 
     suspend fun deleteAll() = tabInfoDao.deleteAll()
 
     suspend fun reorder(new: List<TabInfo>) = tabInfoDao.updateOrder(new)
+
+    suspend fun updateTabInfo(new: TabInfo) = tabInfoDao.update(new)
+
+    /**
+     * CategorizedItemsDao
+     */
+    fun getCategorizedItems(): Flow<List<CategorizedItem>> = categorizedItemDao.getAll()
+
+    fun insertCategorizedItem(items: CategorizedItem) = categorizedItemDao.insert(items)
 }

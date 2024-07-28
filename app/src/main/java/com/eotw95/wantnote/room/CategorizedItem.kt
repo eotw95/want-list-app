@@ -3,9 +3,8 @@ package com.eotw95.wantnote.room
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "tabInfos")
-data class TabInfo(
+@Entity(tableName = "categorized_item")
+data class CategorizedItem(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    var name: String,
-    var order: Int
+    val items: List<WantItem>
 )

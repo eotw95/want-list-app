@@ -1,10 +1,17 @@
 package com.eotw95.wantnote.common.composable
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -12,9 +19,11 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -36,11 +45,12 @@ fun BasicToolBar(
             Icon(
                 imageVector = navIcon,
                 contentDescription = null,
-                modifier = Modifier.clickable { navAction() }
+                modifier = Modifier.clickable { navAction() }.size(30.dp)
             )
         },
         actions = action,
-        elevation = 0.dp
+        elevation = 0.dp,
+        modifier = Modifier.statusBarsPadding().padding(horizontal = 10.dp)
     )
 }
 
@@ -54,15 +64,25 @@ fun TransparentToolBar(
     TopAppBar(
         title = { Text(text = stringResource(id = title)) },
         navigationIcon = {
-            Icon(
-                imageVector = navIcon,
-                contentDescription = null,
-                modifier = Modifier.clickable { navAction() }
-            )
+            Surface(
+                color = Color.Transparent,
+                modifier = Modifier
+                    .background(
+                        color = MaterialTheme.colors.onBackground.copy(alpha = 0.5f),
+                        shape = RoundedCornerShape(50.dp)).padding(10.dp)
+            ) {
+                Icon(
+                    imageVector = navIcon,
+                    contentDescription = null,
+                    modifier = Modifier.clickable { navAction() }.size(30.dp),
+                    tint = MaterialTheme.colors.primary
+                )
+            }
         },
         actions = action,
         elevation = 0.dp,
-        backgroundColor = Color.Transparent.copy(alpha = 0.05f)
+        backgroundColor = Color.Transparent,
+        modifier = Modifier.statusBarsPadding().padding(horizontal = 10.dp)
     )
 }
 
@@ -81,7 +101,8 @@ fun TopToolBar(
             )
         },
         actions = action,
-        elevation = 0.dp
+        elevation = 0.dp,
+        modifier = Modifier.statusBarsPadding()
     )
 }
 

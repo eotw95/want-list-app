@@ -6,6 +6,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.viewinterop.AndroidView
 import com.eotw95.wantnote.common.composable.BasicColumn
@@ -18,7 +19,7 @@ fun WebWant(
     popUp:  () -> Unit
 ) {
     BasicColumn {
-        BasicToolBar(navIcon = Icons.Filled.ArrowBack, navAction = popUp) { /* do nothing */ }
+        BasicToolBar(navIcon = Icons.Filled.KeyboardArrowLeft, navAction = popUp) { /* do nothing */ }
         AndroidView(factory = { context ->
             WebView(context).apply {
                 webViewClient = WebViewClient()

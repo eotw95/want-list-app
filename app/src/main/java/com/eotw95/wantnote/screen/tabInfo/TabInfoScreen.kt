@@ -1,16 +1,21 @@
 package com.eotw95.wantnote.screen.tabInfo
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.eotw95.wantnote.common.composable.AddTabBottomSheet
 import com.eotw95.wantnote.common.composable.BasicColumn
 import com.eotw95.wantnote.common.composable.BasicToolBar
@@ -24,14 +29,19 @@ fun TabInfoScreen(
     viewModel: TabInfoViewModel
 ) {
     val tabInfos by viewModel.tabInfos.collectAsState(initial = emptyList())
-    val tabInfo by viewModel.tabInfo
+    var addedTabInfo by viewModel.addedTabInfo
+    var editedTabInfo by viewModel.editedTabInfo
 
     TabInfoScreenContent(
-        info = tabInfo,
+        addedTab = addedTabInfo,
+        editedTab = editedTabInfo,
         infos = tabInfos.sortedBy { it.order },
         onAddClick = viewModel::onAddClick,
-        onInfoChanged = viewModel::onInfoChanged,
+        onDeleteClick = viewModel::onDeleteClick,
+        onNameChangedOfAddedTab = viewModel::onNameChangedOfAddedTab,
+        onNameChangedOfEditedTab = viewModel::onNameChangedOfEditedTab,
         onReorderTabs = viewModel::onReorderTabs,
+        onEditFinishClick = viewModel::onEditFinishClick,
         open = open,
         popUp = popUp
     )
@@ -40,36 +50,44 @@ fun TabInfoScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TabInfoScreenContent(
-    info: TabInfo,
+    addedTab: TabInfo,
+    editedTab: TabInfo,
     infos: List<TabInfo>,
     onAddClick: (TabInfo) -> Unit,
-    onInfoChanged: (String) -> Unit,
+    onDeleteClick: (TabInfo) -> Unit,
+    onNameChangedOfAddedTab: (String) -> Unit,
+    onNameChangedOfEditedTab: (String) -> Unit,
     onReorderTabs: (List<TabInfo>) -> Unit,
+    onEditFinishClick: (TabInfo, TabInfo) -> Unit,
     open: () -> Unit,
     popUp: () -> Unit
 ) {
     val sheetState = androidx.compose.material3.rememberModalBottomSheetState()
-    val showBottomSheet = remember { mutableStateOf(false) }
+    var showBottomSheet by remember { mutableStateOf(false) }
 
     BasicColumn {
-        BasicToolBar(navIcon = Icons.Filled.ArrowBack, navAction = popUp) {
-            IconButton(onClick = { showBottomSheet.value = true }) {
-                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+        BasicToolBar(navIcon = Icons.Filled.KeyboardArrowLeft, navAction = popUp) {
+            IconButton(onClick = { showBottomSheet = true }) {
+                Icon(imageVector = Icons.Filled.Add, contentDescription = null, modifier = Modifier.size(25.dp), tint = MaterialTheme.colors.onPrimary)
             }
         }
         VerticalReorderList(
+            tab = editedTab,
             items = infos.distinct(),
-            onReorder = onReorderTabs
+            onReorder = onReorderTabs,
+            onDeleteClick = onDeleteClick,
+            onNameChanged = onNameChangedOfEditedTab,
+            onEditFinishClick = onEditFinishClick
         )
     }
 
-    if (showBottomSheet.value) {
+    if (showBottomSheet) {
         AddTabBottomSheet(
-            info = info,
+            tab = addedTab,
             state = sheetState,
-            hide = { showBottomSheet.value = false },
+            hide = { showBottomSheet = false },
             onAddClick = onAddClick,
-            onInfoChanged = onInfoChanged,
+            onInfoChanged = onNameChangedOfAddedTab,
             open = open
         )
     }

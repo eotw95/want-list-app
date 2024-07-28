@@ -11,6 +11,7 @@ import androidx.compose.material.TabRowDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.pagerTabIndicatorOffset
@@ -37,7 +38,10 @@ fun BasicHorizontalIndicator(state: PagerState, indicators: List<String>) {
     ScrollableTabRow(
         selectedTabIndex = state.currentPage,
         indicator = { tabPositions ->  
-            TabRowDefaults.Indicator(Modifier.pagerTabIndicatorOffset(state, tabPositions))
+            TabRowDefaults.Indicator(
+                modifier = Modifier.pagerTabIndicatorOffset(state, tabPositions),
+                color = Color(0xFFFF5067)
+            )
         },
         edgePadding = 0.dp
     ) {
